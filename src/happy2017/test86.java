@@ -9,21 +9,28 @@ public class test86 {
 	}
 	
     public ListNode partition(ListNode head, int x) {
-        ListNode dummy1 = new ListNode(0), dummy2 = new ListNode(0);
-        ListNode cur1 = dummy1, cur2 = dummy2;
-        while(head != null){
-        	if(head.val < x){
-        		cur1.next = head;
-        		cur1 = head;
-        	}
-        	else{
-        		cur2.next = head;
-        		cur2 = head;
-        	}
-        	head = head.next;
-        }
-        cur2.next = null;
-        cur1.next = dummy2.next;
-        return dummy1.next;
+    	ListNode dummy = new ListNode(0);
+    	dummy.next = head;
+    	ListNode left = dummy, curr = head, pre = dummy;
+    	while(curr != null) {
+    		if(curr.val < x) {
+    			if (curr == left.next) {
+    				curr = curr.next;
+    				pre = pre.next;
+    			}
+    			else {
+	    			pre.next = curr.next;
+	    			curr.next =  left.next;
+	    			left.next = curr;
+	    			curr = pre.next;
+    			}
+				left = left.next;
+    		}
+    		else {
+    			curr = curr.next;
+    			pre = pre.next;
+    		}
+    	}
+    	return dummy.next;
     }
 }

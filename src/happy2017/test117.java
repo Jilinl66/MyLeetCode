@@ -9,52 +9,46 @@ public class test117 {
 	}
 	
     public void connect(TreeLinkNode root) {
-    	TreeLinkNode level_start = root;
-    	TreeLinkNode next_level_start = null;
-    	TreeLinkNode pre = null, next = null;
-    	while(level_start != null){
-    		TreeLinkNode cur = level_start;
-    		while(cur != null){
-	    		if(cur.left != null){
-	    			if(next_level_start == null){
-	    				next_level_start = cur.left;
-	    				pre = cur.left;
-	    			}
-	    			else{
-	    				next = cur.left;
-	    				pre.next = next;
-	    				pre = next;
-	    			}
-	    		}
-//	    			linkHelper(next_level_start, pre, next, cur.left);
-	    		if(cur.right != null){
-	    			if(next_level_start == null){
-	    				next_level_start = cur.right;
-	    				pre = cur.right;
-	    			}
-	    			else{
-	    				next = cur.right;
-	    				pre.next = next;
-	    				pre = next;
-	    			}
-	    		}
-//	    			linkHelper(next_level_start, pre, next, cur.right);
-	    		cur = cur.next;
+    	if(root == null) return;
+    	TreeLinkNode pre = root;
+    	TreeLinkNode curr = null;
+    	while(findNextParent(pre) != null) {
+    		curr = null;
+    		TreeLinkNode first = null;
+    		while((pre = findNextParent(pre)) != null) {
+    			if(pre.left != null) {
+    				if(curr != null) {
+    					curr.next = pre.left;
+    				}
+    				else {
+    					first = pre.left;
+    				}
+    				if(pre.right != null) {
+    					pre.left.next = pre.right;
+    					curr = pre.right;
+    				}
+    				else {
+    					curr = pre.left;    					
+    				}
+    			}
+    			else {
+    				if(curr != null)
+    					curr.next = pre.right;
+    				else
+    					first = pre.right;
+    				curr = pre.right;
+    			}
+    			pre = pre.next;
     		}
-    		level_start = next_level_start;
-    		next_level_start = null;
+    		pre = first;
     	}
     }
     
-    private void linkHelper(TreeLinkNode next_level_start, TreeLinkNode pre, TreeLinkNode next, TreeLinkNode target) {
-		if(next_level_start == null){
-			next_level_start = target;
-			pre = target;
+    private TreeLinkNode findNextParent(TreeLinkNode pre) {
+		while(pre != null) {
+    		if(pre.left != null || pre.right != null) return pre;
+    		pre = pre.next;
 		}
-		else{
-			next = target;
-			pre.next = next;
-			pre = next;
-		}
+		return null;
 	}
 }

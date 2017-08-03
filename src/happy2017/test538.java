@@ -6,15 +6,15 @@ import happy2017.test101.TreeNode;
 public class test538 {
 	int sum = 0;
     public TreeNode convertBST(TreeNode root) {
-        computeSum(root);
+        reverseInorder(root);
         return root;
     }
     
-    private void computeSum(TreeNode node) {
-		if(node == null) return;
-		computeSum(node.right);
-		node.val += sum;
-		sum = node.val;
-		computeSum(node.left);
+    private void reverseInorder(TreeNode root) {
+    	if(root == null) return;
+    	reverseInorder(root.right);
+    	root.val += sum;
+    	sum = root.val;
+    	reverseInorder(root.left);
 	}
 }

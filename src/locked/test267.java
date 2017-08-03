@@ -22,22 +22,22 @@ public class test267 {
         	}
 		}
         if(set.size() > 1) return res;
-        String str = set.size() == 0? "": String.valueOf(set.iterator().next());
+        String midStr = set.size() == 0? "": String.valueOf(set.iterator().next());
         //Same character put together for duplication avoidance opearation
         Collections.sort(uniChar);
-        backtracking(res, str, uniChar, new boolean[uniChar.size()], s.length());
+        backtracking(res, midStr, uniChar, new boolean[uniChar.size()], s.length());
         return res;
     }
     
-    public void backtracking(List<String> res, String str, ArrayList<Character> uniChar, boolean[] visited, int n) {
-    	if(str.length() == n) {
-    		res.add(str);
+    public void backtracking(List<String> res, String midStr, ArrayList<Character> uniChar, boolean[] visited, int n) {
+    	if(midStr.length() == n) {
+    		res.add(midStr);
     		return;
     	}
     	for(int i = 0; i < uniChar.size(); i++) {
     		//Avoid duplication
     		if((i > 0 && uniChar.get(i) == uniChar.get(i - 1) && !visited[i - 1]) || visited[i]) continue;
-   			String newStr = String.valueOf(uniChar.get(i)) + str + String.valueOf(uniChar.get(i));
+   			String newStr = String.valueOf(uniChar.get(i)) + midStr + String.valueOf(uniChar.get(i));
 			visited[i] = true;
 			backtracking(res, newStr, uniChar, visited, n);
 			visited[i] = false;

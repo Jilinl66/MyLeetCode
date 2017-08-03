@@ -1,9 +1,13 @@
 package happy2017;
 
-import happy2017.test328.ListNode;
-
 //109. Convert Sorted List to Binary Search Tree
 public class test109 {
+	public class ListNode {
+		int val;
+		 ListNode next;
+		 ListNode(int x) { val = x; }
+	}
+	
 	public class TreeNode {
 		 int val;
 		 TreeNode left;
@@ -12,23 +16,24 @@ public class test109 {
 	}
 	
     public TreeNode sortedListToBST(ListNode head) {
-        if(head == null)
-        	return null;
-        return toBST(head, null);
+        if(head == null) return null;
+        return convertToBST(head);
     }
     
-    private TreeNode toBST(ListNode head, ListNode tail) {
-		ListNode slow = head;
-		ListNode fast = head;
-		if(head == tail)
-			return null;
-		while(fast != tail && fast.next != tail){
-			fast = fast.next.next;
-			slow = slow.next;
-		}
-		TreeNode trHead = new TreeNode(slow.val);
-		trHead.left = toBST(head, slow);
-		trHead.right = toBST(slow.next, tail);
-		return trHead;
+    private TreeNode convertToBST(ListNode head) {
+    	if(head == null) return null;
+    	ListNode dummy = new ListNode(0);
+    	dummy.next = head;
+    	ListNode pre = dummy, p1 = head, p2 = head;
+    	while(p2.next != null && p2.next.next != null) {
+    		pre = p1;
+    		p1 = p1.next;
+    		p2 = p2.next.next;
+    	}
+    	TreeNode root = new TreeNode(p1.val);
+    	pre.next = null;
+    	root.left = convertToBST(dummy.next);
+    	root.right = convertToBST(p1.next);
+    	return root;
     }
 }

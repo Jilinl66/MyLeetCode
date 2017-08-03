@@ -8,31 +8,43 @@ public class test138 {
 	}
 	
     public RandomListNode copyRandomList(RandomListNode head) {
-    		RandomListNode iter = head, next;
-        	while(iter != null){
-        		next = iter.next;
-        		RandomListNode copy = new RandomListNode(iter.label);
-        		iter.next = copy;
-        		copy.next = next;
-        		iter = next;
-        	}
-        	iter = head;
-        	while(iter != null){
-        		if(iter.random != null)
-        			iter.next.random = iter.random.next;
-        		iter = iter.next.next;
-        	}
-        	iter = head;
-        	RandomListNode dummy = new RandomListNode(0);
-        	RandomListNode copy, copyIter = dummy;
-        	while(iter != null){
-        		next = iter.next.next;
-        		copy = iter.next;
-        		copyIter.next = copy;
-        		copyIter = copy;
-        		iter.next = next;
-        		iter = next;
-        	}
-        	return dummy.next;
+    	if(head == null) return null;
+    	RandomListNode curr = head, next;
+    	while(curr != null) {
+    		next = curr.next;
+    		RandomListNode copy = new RandomListNode(curr.label);
+    		curr.next = copy;
+    		copy.next = next;
+    		curr = next;
+    	}
+    	
+    	curr = head;
+    	while(curr != null) {
+    		next = curr.next.next;
+    		if(curr.random != null)
+    			curr.next.random = curr.random.next;
+    		if(next.next != null)
+    			curr.next.next = next.next;
+    		curr = next;    		
+    	}
+    	
+    	curr = head;
+    	RandomListNode dummy = new RandomListNode(0);
+    	RandomListNode copy, copyIter = dummy;
+    	while(curr != null) { 
+    		next = curr.next.next;
+    		copy = curr.next;
+    		copyIter.next = copy;
+    		copyIter = copy;
+    		curr.next = next;
+    		curr = next;
+    	}
+    	return dummy.next;
     }
 }
+
+
+/** Amazon Microsoft Bloomberg Uber
+ *  Hash Table
+ */
+

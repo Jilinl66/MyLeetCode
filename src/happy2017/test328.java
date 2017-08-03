@@ -7,17 +7,16 @@ public class test328 {
 		 ListNode(int x) { val = x; }
 	}
     public ListNode oddEvenList(ListNode head) {
-    	if(head == null)
-    		return head;
-    	ListNode odd = head;
-        ListNode even = head.next, evenHead = even;
-        while(even != null && even.next != null){                                                     
-        	odd.next = odd.next.next;
-        	even.next = even.next.next;
-        	odd = odd.next;
-        	even = even.next;
-        }
-        odd.next = evenHead;
-        return head;
+    	if(head == null || head.next == null) return head;
+    	ListNode slow = head, fast = head.next;
+    	while(fast != null && fast.next != null) {
+    		ListNode temp = fast.next.next;
+    		fast.next.next = slow.next;
+    		slow.next = fast.next;
+    		fast.next = temp;
+    		slow = slow.next;
+    		fast = fast.next;
+    	}
+    	return head;
     }
 }

@@ -13,34 +13,27 @@ public class test95 {
 	}
 	
     public List<TreeNode> generateTrees(int n) {
-    	if(n == 0)
-    		return new ArrayList<TreeNode>();
-        return genTree(1, n);
+    	List<TreeNode> res = new ArrayList<>();
+    	if(n == 0) return res;
+    	return generateSubTree(1, n);
     }
     
-    public List<TreeNode> genTree(int start, int end) {
-    	List<TreeNode> treeList = new ArrayList<TreeNode>();
-    	if(start > end){
-    		treeList.add(null);
-    		return treeList;
+    private List<TreeNode> generateSubTree(int start, int end) {
+    	List<TreeNode> list = new ArrayList<>();
+    	if(start > end) {
+    		list.add(null);
+    		return list;
     	}
-    	if(start == end){
-    		treeList.add(new TreeNode(start));
-    		return treeList;
-    	}
-    	List<TreeNode> left, right;
-    	for(int i = start; i <=end; i++){
-    		left = genTree(start, i - 1);
-    		right = genTree(i + 1, end);
-    		for(TreeNode lnode: left){
-    			for(TreeNode rnode: right){
-	    			TreeNode root = new TreeNode(i);
-	    			root.left = lnode;
-	    			root.right = rnode;
-	    			treeList.add(root);
+    	for(int i = start; i <= end; i++) {
+    		for(TreeNode leftChild: generateSubTree(start, i - 1)) {
+    			for(TreeNode rightChild: generateSubTree(i + 1, end)) {
+    				TreeNode root = new TreeNode(i);
+    				root.left = leftChild;
+    				root.right = rightChild;
+    				list.add(root);
     			}
     		}
     	}
-    	return treeList;
-	}
+    	return list;
+    }
 }

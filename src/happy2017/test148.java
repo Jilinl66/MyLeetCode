@@ -1,5 +1,4 @@
 package happy2017;
-import java.lang.reflect.Member;
 
 //148. Sort List
 public class test148 {
@@ -8,38 +7,39 @@ public class test148 {
 		 ListNode next;
 		 ListNode(int x) { val = x; }
 	}
-	
     public ListNode sortList(ListNode head) {
         if(head == null || head.next == null) return head;
-        ListNode slow = head, fast = head, prev = null;
-        while(fast != null && fast.next != null){
-        	prev = slow;
-        	fast = fast.next.next;
+        ListNode slow = head, fast = head, pre = slow;
+        while(fast != null && fast.next != null) {
+        	pre = slow;
         	slow = slow.next;
-        } 
-        prev.next = null;
+        	fast = fast.next.next;
+        }
+        pre.next = null;
         ListNode l1 = sortList(head);
         ListNode l2 = sortList(slow);
-        return merge(l1, l2);
-    }
+        ListNode newHead = merge(l1, l2);
+        return newHead;
+    } 
     
-    ListNode merge(ListNode l1,ListNode l2){
-    	ListNode dummy = new ListNode(0), p = dummy;
-    	while(l1 != null && l2 != null){
-    		if(l1.val < l2.val){
-    			p.next = l1;
-    			l1 = l1.next;
-    		}
-    		else{
-    			p.next = l2;
-    			l2 = l2.next;
-    		}
-    		p = p.next;
-    	}
-    	if(l1 != null)
-    		p.next = l1;
-    	if(l2 != null)
-    		p.next = l2;
-    	return dummy.next;
-    }
+    private ListNode merge(ListNode n1, ListNode n2) {
+		ListNode dummy = new ListNode(0);
+		ListNode p = dummy;
+		while(n1 != null && n2 != null) {
+			if(n1.val < n2.val) {
+				p.next = n1;
+				n1 = n1.next;
+			}
+			else{
+				p.next = n2;
+				n2 = n2.next;
+			}
+			p = p.next;
+		}
+		if(n1 != null)
+			p.next = n1;
+		if(n2 != null)
+			p.next = n2;
+		return dummy.next;
+	}
 }

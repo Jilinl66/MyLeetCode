@@ -1,22 +1,34 @@
 package happy2017;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 //205. Isomorphic Strings
 public class test205 {
 	public boolean isIsomorphic(String s, String t) {
 		if(s.length() != t.length()) return false;
-		int[] array1 = new int[256];
-		int[] array2 = new int[256];
-		for(int i = 0; i < s.length(); i++){
-			System.out.println(array1[s.charAt(i)] + " " + array2[t.charAt(i)]);
-			if(array1[s.charAt(i)] != array2[t.charAt(i)]) return false;
-			array1[s.charAt(i)] = i;
-			array2[t.charAt(i)] = i;
+		Map<Character, Character> map = new HashMap<>();
+		Set<Character> set = new HashSet<>();
+		for(int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if(!map.containsKey(c)) {
+				if(!set.add(t.charAt(i)))
+					return false;
+				map.put(c, t.charAt(i));
+			}
+			else if(map.get(c) != t.charAt(i))
+				return false;
 		}
 		return true;
 	}
+	
+	
+	
+	
+	
+	
 //	if-else 就近匹配
 //	public boolean isIsomorphic(String s, String t) {
 //		return helper(s, t) && helper(t, s);

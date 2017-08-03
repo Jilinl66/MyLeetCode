@@ -1,32 +1,37 @@
 package happy2017;
 
+import java.util.LinkedList;
+import java.util.Random;
+
 //384. Shuffle an Array
 public class test384 {
-	private int[] nums;
-    public test384(int[] nums) {
-        this.nums = nums;
+	int[] copy;
+	Random random;
+	int size;
+	
+    public Solution(int[] nums) {
+    	copy = nums;
+    	random = new Random();
+    	size = copy.length;
     }
     
     /** Resets the array to its original configuration and return it. */
     public int[] reset() {
-        return nums;
+        return copy;
     }
     
     /** Returns a random shuffling of the array. */
     public int[] shuffle() {
-        if(nums == null)
-        	return null;
-        int[] rand = nums.clone();
-        for(int i = 1; i < nums.length; i++){
-        	int index = (int) Math.floor(Math.random() * nums.length);
-        	swap(rand, index, i);
+    	LinkedList<Integer> list = new LinkedList<>();
+    	for(int i = 0; i < size; i++)
+        	list.add(copy[i]);
+        int[] res = new int[size];
+        int i = 0;
+        while(i < size) {
+        	int rand = random.nextInt(list.size());
+        	res[i ++] = list.get(rand);
+        	list.remove(rand);
         }
-        return rand;
+        return res;
     }
-    
-    public void swap(int[] array, int i, int j) {
-		int temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
 }

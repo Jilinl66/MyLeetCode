@@ -2,54 +2,30 @@ package happy2017;
 
 //79. Word Search
 public class test79 {
-	 public boolean exist(char[][] board, String word) {
-		 if(word.length() == 0) return false;
-		 char[] c_array = word.toCharArray();
-		 int row = board.length, col = board[0].length;
-		 for(int i = 0; i < row; i++){
-			 for(int j = 0; j < col; j++){
-				 if(exist(board, i, j, c_array, 0)) return true;
-			 }
-		 }
-		 return false;
-	 }
-	 
-	 public boolean exist(char[][] board, int x, int y, char[] word, int index) {
-		int row = board.length, col = board[0].length;
-		if(index == word.length) return true;
-		if(x < 0 || y < 0 || x == row || y == col) return false;
-		if(board[x][y] != word[index]) return false;
-		board[x][y] ^= 256;
-		boolean ret = exist(board, x + 1, y, word, index + 1)
-				|| exist(board, x - 1, y, word, index + 1) 
-				|| exist(board, x, y + 1, word, index + 1) 
-				|| exist(board, x, y - 1, word, index + 1);
-		board[x][y] ^= 256;
+	public boolean exist(char[][] board, String word) {
+		if(board.length == 0) return false;
+		int m = board.length, n = board[0].length;
+		for(int i = 0; i < m; i++) {
+			for(int j = 0; j < n; j++) {
+				if(exist(board, word, i, j, 0))
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean exist(char[][] board, String word, int i, int j, int pos) {
+		if(pos == word.length()) return true;
+		if(i < 0 || i >= board.length || j < 0 || j >= board[0].length || word.charAt(pos) != board[i][j]) return false;
+		board[i][j] ^= 256;
+		boolean ret = exist(board, word, i + 1, j, pos + 1) ||
+					exist(board, word, i - 1, j, pos + 1) ||
+					exist(board, word, i, j + 1, pos + 1) ||
+					exist(board, word, i, j - 1, pos + 1);
+		board[i][j] ^= 256;
 		return ret;
 	}
-//    public boolean exist(char[][] board, String word) {
-//    	if(word.length() == 0) return false;
-//    	char firstCh = word.charAt(0);
-//    	int row = board.length, col = board[0].length;
-//    	boolean[][] visited = new boolean[row][col];
-//        for(int i = 0; i < row; i++){
-//        	for(int j = 0; j < col; j++){
-//        		if(board[i][j] == firstCh){
-//        			visited[i][j] = true;
-//        			if(helper(board, word.substring(1), i, j, visited)){
-////        				System.out.println("if" + i + " " + j);
-//        				return true;
-//        			}
-//        			else{
-//        				visited[i][j] = false;
-//        				System.out.println("else" + i + " " + j);
-//        			}
-//        		}
-//        	}
-//        }
-//        return false;
-//    }
-//    
+	  
 //    public boolean helper(char[][] b, String word, int x, int y, boolean[][] v) {
 //    	int row = b.length, col = b[0].length;
 //		if(word.length() == 0) return true;

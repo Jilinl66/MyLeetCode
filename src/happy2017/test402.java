@@ -1,21 +1,31 @@
 package happy2017;
+
+import java.util.Stack;
+
 //402. Remove K Digits
 public class test402 {
     public String removeKdigits(String num, int k) {
-    	int resLen = num.length() - k;
-    	char[] str = num.toCharArray();
-    	char[] stack = new char[num.length()];
-    	int top = 0;
-    	for(int i = 0; i < num.length(); i++){
-    		while(top > 0 && stack[top - 1] > str[i] && k > 0){
-    			top --;
-    			k --;
+    	if(k > num.length()) return "0";
+    	Stack<Character> stack = new Stack<>();
+    	int i = 0;
+    	while(i < num.length() && k > 0) {
+    		while(!stack.isEmpty() && k > 0 && num.charAt(i) - '0' < stack.peek() - '0') {
+    			stack.pop();
+    			k--;
     		}
-    		stack[top ++] = str[i];
+    		stack.push(num.charAt(i));
+    		i++;
     	}
-    	int index = 0;
-    	while(index < resLen && stack[index] == '0') index++;
-    	System.out.println(stack.toString());
-    	return index >= resLen? "0": String.valueOf(stack).substring(index, resLen);
-    }   
+    	while(i < num.length())
+    		stack.push(num.charAt(i++));
+    	while(k-- > 0)
+    		stack.pop();
+    	String res = "";
+    	while(!stack.isEmpty())
+    		res = stack.pop() + res;
+    	i = 0;
+    	while(i < res.length() && res.charAt(i) == '0')
+    		i++;
+    	return i == res.length()? "0": res.substring(i);
+    }    
 }	

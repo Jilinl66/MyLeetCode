@@ -2,33 +2,34 @@ package happy2017;
 //31. Next Permutation
 public class test31 {
     public void nextPermutation(int[] nums) {
-    	int len = nums.length;
-    	int i = len - 1;
-    	while(--i >= 0 && nums[i] >= nums[i + 1]){}
-    	if(i < 0)
-    		reverse(nums, 0, len - 1);
-    	else{
-    		for(int m = len -1; m > i; m--)
-    			if(nums[m] > nums[i]){
-    				swwap(nums, i, m);
-    				break;
-    			}
-			reverse(nums, i + 1, len - 1);
-    	}
+        if(nums.length < 2) return;
+        int i = nums.length - 1;
+        while(i > 0 && nums[i] <= nums[i - 1])
+        	i--;
+        if(i == 0) {
+        	reverse(nums, 0, nums.length - 1);
+        	return;
+        }
+        i --;
+        int k = i + 1;
+        while(k < nums.length && nums[k] > nums[i])
+        	k ++;
+        k--;
+        swap(nums, i, k);
+        reverse(nums, i + 1, nums.length - 1);
     }
-    
-    private void reverse(int[] nums, int start, int end) {
-		while(start < end){
-			swwap(nums, start, end);
-			start ++;
-			end --;
-		}	
+    public void swap(int[] nums, int i, int k) {
+    	int temp = nums[i];
+    	nums[i] = nums[k];
+    	nums[k] = temp;
 	}
     
-    private void swwap(int[] A, int a, int b) {
-    	if(a == b) return;
-    	int temp = A[a];
-		A[a] = A[b];
-		A[b] = temp;
+    public void reverse(int[] nums, int i, int j) {
+		while(i < j) {
+			int temp = nums[i];
+			nums[i] = nums[j];
+			nums[j] = temp;
+			i++; j--;
+		}
 	}
 }

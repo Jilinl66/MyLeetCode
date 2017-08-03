@@ -1,24 +1,23 @@
 package happy2017;
 
+import java.util.Arrays;
+
 //322. Coin Change
 public class test322 {
     public int coinChange(int[] coins, int amount) {
-    	if(amount < 1) return 0;
-    	return helper(coins, amount, new int[amount + 1]);
-    }
-
-	private int helper(int[] coins, int remain, int[] count) {
-		if(remain < 0) return -1;
-		if(remain == 0) return 0;
-		if(count[remain] != 0)
-			return count[remain];
-		int min = Integer.MAX_VALUE;
-		for(int coin: coins){
-			int ret = helper(coins, remain - coin, count);
-			if(ret >= 0 && ret + 1 < min)
-				min = ret + 1;
-		}
-		count[remain] = (min == Integer.MAX_VALUE? -1: min);
-		return count[remain];
-	}
+    	int[] dp = new int[amount + 1];
+    	Arrays.fill(dp, Integer.MIN_VALUE);
+    	dp[0] = 0;
+    	for(int i = 1; i <= amount; i++) {
+    		for(int j = 0; j < coins.length; j++) {
+    			if(i - coins[j] >= 0 && dp[i - coins[j]] != Integer.MIN_VALUE) {
+    				if(dp[i] == Integer.MIN_VALUE)
+    					dp[i] = dp[i - coins[j]] + 1;
+    				else
+    					dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+    			}
+    		}
+    	}
+    	return dp[amount] == Integer.MIN_VALUE? -1: dp[amount];
+    }    
 }

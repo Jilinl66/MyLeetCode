@@ -20,8 +20,8 @@ public class test324 {
     }
     
     private int newIndex(int index, int n) {
-		return  (1 + index * 2) % (n | 1);
-	}
+    	return (1 + 2 * index) % (n | 1);
+    }
     
     private void swap(int[] nums, int i, int j) {
 		if(i == j) return;

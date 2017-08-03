@@ -4,15 +4,21 @@ import happy2017.test101.TreeNode;
 
 //129. Sum Root to Leaf Numbers
 public class test129 {
+	int sum;
+	
     public int sumNumbers(TreeNode root) {
-        return sum(root, 0);
+    	sum = 0;
+    	dfs(root, 0);
+    	return sum;
     }
     
-    public int sum(TreeNode node, int s) {
-		if(node == null) return 0;
-		if(node.left == null && node.right == null)
-			return s * 10 + node.val;
-		return sum(node.left, s * 10 + node.val) + sum(node.right, s * 10 + node.val);
-		
+    private void dfs(TreeNode root, int num) {
+    	if(root == null) return;
+		if(root.left == null && root.right == null) {
+			sum += num * 10 + root.val;
+			return;
+		}
+		dfs(root.left, num * 10 + root.val);
+		dfs(root.right, num * 10 + root.val);
 	}
- }
+}

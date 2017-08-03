@@ -9,19 +9,23 @@ public class test61 {
 	}
 	
     public ListNode rotateRight(ListNode head, int k) {
-        if(head == null || head.next == null) return head;
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode slow = dummy, fast = dummy;
-        int len = 0;
-        for(len = 0; fast.next != null; len++)
-        	fast = fast.next;
-        // get the len-k node
-        for(int i = 0; i < len - k%len; i++)
-        	slow = slow.next;
-        fast.next = dummy.next;
-        dummy.next = slow.next;
-        slow.next = null;
-        return dummy.next;
+    	if(head == null) return head;
+    	int count = 0;
+    	ListNode dummy = new ListNode(0);
+    	dummy.next = head;
+    	ListNode fast = dummy;
+    	while(fast.next != null) {
+    		fast = fast.next;
+    		count ++;
+    	}
+    	if(k == 0) return head;
+    	ListNode curr = dummy;
+    	for(int i = 0; i < count - k % count; i++) {
+    		curr = curr.next;
+    	}
+    	fast.next = dummy.next;
+    	dummy.next = curr.next;
+    	curr.next = null;
+    	return dummy.next;
     }
 }

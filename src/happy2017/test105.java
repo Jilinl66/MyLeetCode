@@ -10,19 +10,19 @@ public class test105 {
 	}
 	
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        return helper(0, 0, inorder.length - 1, preorder, inorder);
+    	if(preorder.length == 0) return null;
+        return helper(preorder, inorder, 0, preorder.length - 1, 0, inorder.length - 1);
     }
-    
-    public TreeNode helper(int prestart, int instart, int inend, int[] preorder, int[] inorder){
-    	if(prestart > preorder.length -1 || instart > inend)
-    		return null;
-    	TreeNode root = new TreeNode(preorder[prestart]);
-    	int inIndex = 0;
-    	for(int i = instart; i<= inend; i++)
-    		if(inorder[i] == root.val)
-    			inIndex = i;
-    	root.left = helper(prestart + 1, instart, inIndex - 1, preorder, inorder);
-    	root.right = helper(prestart + inIndex - instart + 1, inIndex + 1, inend, preorder, inorder);
+
+    private TreeNode helper(int[] preorder, int[] inorder, int l1, int r1, int l2 ,int r2) {
+    	if(l1 == r1) return new TreeNode(preorder[l1]);
+    	if(l1 < r1) return null;
+    	TreeNode root = new TreeNode(preorder[l1]);
+    	int idx = l2;
+    	while(inorder[idx] != preorder[l1])
+    		idx++;
+    	root.left = helper(preorder, inorder, l1 + 1, l1 + idx - l2, l2, idx - 1);
+    	root.right = helper(preorder, inorder, l1 + 1 + idx - l2, r1, idx + 1, r2);
     	return root;
     }
 }

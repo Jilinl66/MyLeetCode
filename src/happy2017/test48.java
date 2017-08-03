@@ -2,18 +2,27 @@ package happy2017;
 //48. Rotate Image
 public class test48 {
     public void rotate(int[][] matrix) {
+    	if(matrix == null || matrix.length == 0) return;
     	int n = matrix.length;
-        for(int r = 0; r < n / 2; r ++)
-        	for(int c = 0; c < n; c ++)
-        		swap(matrix, r, c, n - 1 - r, c);
-        for(int r = 0; r < n; r++)
-        	for(int c = r + 1; c < n; c++)
-        		swap(matrix, r, c, c, r);
+    	for(int i = 0; i < n/2; i++) {
+    		for(int j = 0; j < n; j++) {
+    			reverse(matrix, i, j, n - 1 - i, j);
+    		}
+    	}
+    	for(int i = 0; i < n; i++) {
+    		for(int j = i + 1; j < n; j++) {
+    			reverse(matrix, i, j, j, i);
+    		}
+    	}
     }
     
-    private void swap(int[][] matrix, int a, int b, int c, int d) {
-		int temp = matrix[a][b];
-		matrix[a][b] = matrix[c][d];
-		matrix[c][d] = temp;
-	}
+    private void reverse(int[][] matrix, int x1, int y1, int x2, int y2) {
+    	int temp = matrix[x1][y1];
+    	matrix[x1][y1] = matrix[x2][y2];
+    	matrix[x2][y2] = temp;
+    }
 }
+
+/**  Amazon Microsoft Apple
+ * 
+ */

@@ -2,20 +2,23 @@ package happy2017;
 //75. Sort Colors
 public class test75 {
     public void sortColors(int[] nums) {
-        int w1 = 0, b2 = 0;
-        for(int i = 0; i < nums.length; i ++){
-        	if(nums[i] == 0){
-        		nums[i] = 2;
-        		nums[b2] = 1;
-        		nums[w1] = 0;
-        		w1 ++;
-        		b2 ++;
-        	}
-        	else if(nums[i] == 1){
-        		nums[i] = 2;
-        		nums[b2] = 1;
-        		b2 ++;
-        	}
-        }
+    	int i = 0, j = nums.length - 1;
+    	for(int k = 0; k <= j; k++) {
+    		if(nums[k] == 2) {
+    			swap(nums, k, j);
+    			k--;
+    			j--;
+    		}
+    		else if(nums[k] == 0) {
+    			swap(nums, i, k);
+    			i++;
+    		}
+    	}
+    }
+    
+    private void swap(int[] nums, int i, int j) {
+    	int temp = nums[i];
+    	nums[i] = nums[j];
+    	nums[j] = temp;
     }
 }

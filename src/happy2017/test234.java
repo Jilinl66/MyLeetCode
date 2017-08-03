@@ -1,4 +1,5 @@
 package happy2017;
+
 //234. Palindrome Linked List
 public class test234 {
 	public class ListNode {
@@ -8,31 +9,32 @@ public class test234 {
 	}
 	
     public boolean isPalindrome(ListNode head) {
-        ListNode fast = head, slow = head;
-        while(fast != null && fast.next != null){
-        	slow = slow.next;
-        	fast = fast.next.next;
-        }
-        if(fast != null)
-        	slow = slow.next;
-        ListNode rightHalf = reverse(slow);
-        while(rightHalf != null){
-        	if(rightHalf.val != head.val)
-        		return false;
-        	rightHalf = rightHalf.next;
-        	head = head.next;
-        }
-        return true;
+    	if(head == null || head.next == null) return true;
+    	int count = 0;
+    	ListNode curr = head;
+    	while(curr != null) {
+    		count ++;
+    		curr = curr.next;
+    	}
+    	curr = head;
+    	for(int i = 0; i < count/2; i++)
+    		curr = curr.next;
+    	ListNode tail = reverse(curr, null);
+    	ListNode p1 = head, p2 = tail;
+    	while(p1 !=  null && p2 != null) {
+    		if(p1.val != p2.val)
+    			return false;
+    		p1 = p1.next;
+    		p2 = p2.next;
+    	}
+    	return true;
     }
 
-	private ListNode reverse(ListNode head) {
-		ListNode pre = null;
-		while(head != null){
-			ListNode next = head.next;
-			head.next = pre;
-			pre = head;
-			head = next;
-		}
-		return pre;
+	private ListNode reverse(ListNode head, ListNode pre) {
+		ListNode next = head.next;
+		head.next = pre;
+		if(next == null) return head;
+		ListNode root = reverse(next, head);
+		return root;
 	}
 }

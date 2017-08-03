@@ -8,19 +8,17 @@ import java.util.Stack;
 //71. Simplify Path
 public class test71 {
     public String simplifyPath(String path) {
-    	String reString = "";
-    	Set<String> skipEle = new HashSet<>(Arrays.asList("", ".", ".."));
+    	String res = "";
+    	Set<String> skip = new HashSet<>(Arrays.asList("", ".", ".."));
     	Stack<String> stack = new Stack<>();
-    	for(String str: path.split("/")){
-    		if(str.equals("..") && !stack.isEmpty()) 
+    	for(String str: path.split("/")) {
+    		if(str.equals("..") && !stack.isEmpty())
     			stack.pop();
-    		else if(!skipEle.contains(str))
+    		if(!skip.contains(str))
     			stack.push(str);
     	}
-    	for(String dir: stack){
-    		System.out.println(dir);
-    		reString = "/" + dir + reString;
-    	}
-    	return reString.isEmpty() ? "/": reString;
+    	while(!stack.isEmpty())
+    		res = "/" + stack.pop() + res;
+    	return res.length() == 0? "/": res;
     }
 }
