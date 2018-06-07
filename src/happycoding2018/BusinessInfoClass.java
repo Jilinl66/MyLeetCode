@@ -50,34 +50,26 @@ public class BusinessInfoClass {
 					return 0;
 				}
 			});
-			for (int i = businesses.size() - 1; i >= 0; i--) {
+			for (int i = 0; i < businesses.size(); i++) {
 				queue.offer(businesses.get(i));
 			}
-//			for (int i = 0; i < businesses.size(); i++) {
-//				queue.offer(businesses.get(i));
-//			}
 			List<BusinessInfo> resList = new ArrayList<>();
 			while(!queue.isEmpty()) {
 				resList.add(queue.poll());
 			}
 			// Medium
 //			int size = queue.size();
-//			int midIndex1;
-//			if (size % 2 == 0) {
-//				midIndex1 = size / 2 - 1;
-//			} else {
-//				midIndex1 = size / 2;
-//			}
-//			for (int i = 0; i < midIndex1; i++) {
+//			int midIndex = (size - 1)/2;
+//			for (int i = 0; i < midIndex; i++) {
 //				queue.poll();
 //			}
+//			System.err.println(midIndex);
 //			double mid;
 //			if (size % 2 == 0) {
 //				mid = (queue.poll().rating + queue.poll().rating) / 2;
 //			} else {
 //				mid = queue.poll().rating;
 //			}
-//			return mid;
 			return resList;
 	}
 }
