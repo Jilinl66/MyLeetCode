@@ -8,22 +8,26 @@ public class test82 {
 		 ListNode(int x) { val = x; }
 	}
     public ListNode deleteDuplicates(ListNode head) {
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode pre = dummy;
-        ListNode cur = head;
-        while(cur != null){
-        	while(cur.next != null && cur.val == cur.next.val){
-        		cur = cur.next;
-        	}
-        	if(pre.next == cur){
-        		pre = pre.next;
-        	}
-        	else{
-        		pre.next = cur.next;
-        	}
-        	cur = cur.next;	
-        }
-        return dummy.next;
+    		  if (head == null)
+    			  return head;
+          ListNode dummy = new ListNode(0);
+          dummy.next = head;
+	  	  ListNode pre = dummy;
+	  	  ListNode curr = head;
+          while(curr != null && curr.next != null) {
+        	  		if(curr.val == curr.next.val) {
+        	  			int val = curr.val;
+        	  				while(curr != null && curr.val == val) {
+        	  					pre.next = pre.next.next;
+        	  					curr = pre.next;
+        	  				}
+        	  		}
+        	  		else {
+        	  			pre = pre.next;
+        	  			curr = curr.next;
+        	  		}
+          }
+          return dummy.next;
     }
 }
+
