@@ -1,4 +1,4 @@
-package happycoding2018;
+ package happycoding2018;
 
 // Yelp OA V11
 import java.util.HashMap;
@@ -6,7 +6,15 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 public class TopColor {
-	public String[] findTopColorList(String[][] target) {
+	public static void main(String[] args) {
+		 String[][] colors = {{"red", "green", "green"}, {"black", "blue", "black"}, {"red", "yellow", "yellow"}};
+		 String[] reStrings = findTopColorList(colors);
+		 for (String s: reStrings) {
+			 System.out.println(s);
+		 }		
+	}
+	
+	public static String[] findTopColorList(String[][] target) {
 		int topCount = 0;
 		Map<String, Integer> countMap = new HashMap<>();
 		for (String[] strArr: target) {

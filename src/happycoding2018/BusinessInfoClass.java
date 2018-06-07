@@ -16,8 +16,8 @@ public class BusinessInfoClass {
 		BusinessInfo bi3 = bClass.new BusinessInfo(103, 3);
 		BusinessInfo bi4 = bClass.new BusinessInfo(104, 5.45);
 		BusinessInfo bi5 = bClass.new BusinessInfo(106, 5.32);
-		// Create list from array
 		
+		// Create list from array
 		List<BusinessInfo> businesses = Arrays.asList(bi1, bi2, bi3, bi4, bi5);
 		List<BusinessInfo> sortedlist = bClass.sortBusinessesByRating(businesses);
 		for (BusinessInfo bi: sortedlist) {
