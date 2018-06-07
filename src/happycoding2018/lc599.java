@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//599. Minimum Index Sum of Two Lists
 public class lc599 {
 //	public String[] findRestaurant(String[] list1, String[] list2) {
 //        int indexCount = -1;
