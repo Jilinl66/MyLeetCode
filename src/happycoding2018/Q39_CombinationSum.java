@@ -14,7 +14,7 @@ public class Q39_CombinationSum {
     private void helper(List<List<Integer>> res, List<Integer> list, int sum, int[] candidates, int target, int p) {
         if (sum >= target) {
             if (sum == target) {
-                res.add(list);
+                res.add(new ArrayList<>(list)); // Add Copy value!!!
             }
             return;
         }
@@ -23,13 +23,7 @@ public class Q39_CombinationSum {
             list.add(number);
             helper(res, list, sum + number, candidates, target, i);
             list.remove(new Integer(number));
-            printList(list);
         }
     }
     
-    private void printList(List<Integer> list) {
-    	for (int i: list) {
-    		System.out.print(i + " ");
-    	}
-    }
 }
